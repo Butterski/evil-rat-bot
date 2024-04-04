@@ -1,8 +1,14 @@
+import os
 import discord
 import openai
 from discord.ext import commands
 from cogs.schedule.utils import get_next_week_mondays_and_sundays, transform_message
 from utils.functions import try_delete
+from dotenv import load_dotenv
+
+load_dotenv()
+
+channel_id = os.environ.get("SCHEDULE_CHANNEL")
 
 
 class Schedule(commands.Cog):
@@ -14,8 +20,7 @@ class Schedule(commands.Cog):
     @commands.command(name="kiedy_gramy", aliases=["kiedyGramy", "kiedy-gramy"])
     async def schedule_cmd(self, ctx):
         await try_delete(ctx.message)
-        channel = self.bot.get_channel(1018175837947830364) # szczury
-        # channel = self.bot.get_channel(721448049779408907)
+        channel = self.bot.get_channel(channel_id)
 
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
@@ -73,7 +78,7 @@ class Schedule(commands.Cog):
         for id in emotes_ids:
             emo = self.bot.get_emoji(id)
             await msg.add_reaction(emo)
-    
+
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
         if payload.emoji.id == 1166098516234485840:
@@ -84,7 +89,7 @@ class Schedule(commands.Cog):
             for reaction in message.reactions:
                 users = set()
                 async for user in reaction.users():
-                    if (user.bot):
+                    if user.bot:
                         continue
                     users.add(user.nick)
                 day_and_nicks += ((reaction.emoji.name, users),)

@@ -1,4 +1,3 @@
-import datetime as d
 import os
 
 import d20
@@ -71,28 +70,5 @@ async def commands_error(ctx, error):
                     return
 
     raise error
-
-
-# @client.command(pass_context=True)
-# async def kiedyGramy(ctx):
-
-
-# @tasks.loop(hours=1)
-# async def change_activity():
-#     today = d.datetime.today()
-#     weekday = (d.datetime.today().weekday()) + 1
-#     time = today.hour
-#     channel = client.get_channel(1018175837947830364)
-#     tmr = d.datetime.today() + d.timedelta(days=1)
-#     inwk = d.datetime.today() + d.timedelta(days=7)
-#     if weekday == 7 and time == 11:
-#         msg = await channel.send(f'**Witajcie podróżnicy, kiedy gramy?**\ndaty: <t:{int(tmr.timestamp())}:d> => <t:{int(inwk.timestamp())}:d>\nklikać emotki\n|| @here ||')
-#         ids = [1020804462887043134, 1020804469274968115, 1020804467819552810,
-#                1020804460450172968, 1020804464875163781, 1020804465860825089, 1020804461842677760]
-#         for i in ids:
-#             emo = client.get_emoji(i)
-#             await msg.add_reaction(emo)
-
-# 824970912382189571
 
 client.run(token)
