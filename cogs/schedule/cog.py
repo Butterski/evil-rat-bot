@@ -59,7 +59,7 @@ class Schedule(commands.Cog):
         monday, sunday = get_next_week_mondays_and_sundays()
         message = (
             "## Kiedy gramy?\n"
-            "|| @here ||\n"
+            "|| @everyone ||\n"
             f"**Daty** od: <t:{int(monday)}:d> \n"
             f"*{response['choices'][0]['message']['content']}*\n"
         )
