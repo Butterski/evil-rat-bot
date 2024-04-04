@@ -17,10 +17,10 @@ class Schedule(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(name="kiedy_gramy", aliases=["kiedyGramy", "kiedy-gramy"])
+    @commands.command(name="kiedy_gramy", aliases=["kiedyGramy", "kiedy-gramy", "kiedygramy"])
     async def schedule_cmd(self, ctx):
         await try_delete(ctx.message)
-        channel = self.bot.get_channel(channel_id)
+        channel = self.bot.get_channel(int(channel_id))
 
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
