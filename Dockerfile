@@ -6,7 +6,7 @@ USER rat-user
 WORKDIR /bot
 
 COPY . /bot
-COPY requirements.txt /bot/requirements.txt
+RUN ./run.sh
 
 RUN pip install --no-warn-script-location -r requirements.txt
 
