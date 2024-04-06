@@ -7,6 +7,6 @@ WORKDIR /bot
 
 COPY . /bot
 
-RUN run.sh
+RUN ./run.sh
 
 ENTRYPOINT ["python3", "main.py"]
