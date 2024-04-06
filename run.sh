@@ -6,6 +6,6 @@ fi
 
 source venv/bin/activate
 
-pip install -r requirements.txt
+pip install --no-warn-script-location -r requirements.txt
 
 python main.py
