@@ -1,0 +1,13 @@
+{
+  "nick": {
+      "info": "",
+      "character": "",
+      "odpowiadanie": ""
+  },
+  "nick2": {
+      "info": "",
+      "character": "",
+      "response_strategy": ""
+  }
+}
+
