@@ -17,38 +17,20 @@ class Schedule(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    
+
     @commands.command(name="kiedy_gramy", aliases=["kiedyGramy", "kiedy-gramy", "kiedygramy"])
     async def schedule_cmd(self, ctx):
         await try_delete(ctx.message)
         channel = self.bot.get_channel(int(channel_id))
 
         response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
                     "content": 'Jesteś szczurzym karczmarzem w fantastycznym świecie, przybyli do ciebie podróżnicy, spytaj się ich w kreatywny sposób kiedy mają wolny czas, wiadomość zakończ po przez jakąś wariację tej wiadomości - \\"zaznaczcie niżej kiedy macie czas tak aby było łatwiej \\". Napisz tylko to co karczmarz mówi bez żadnych innych wiadomości ani opisu na maksymalnie 200 znaków.',
-                },
-                {
-                    "role": "assistant",
-                    "content": "Czy podróżnicy mają wolny czas na nową przygodę? Może jakiś czas na zwiedzanie lochów i zabijanie smoków? Albo może chcecie się zemścić na mrocznych królach? Zaznaczcie na moich magicznych tabliczkach kiedy chcecie się wybrać",
-                },
-                {
-                    "role": "assistant",
-                    "content": "Czy jesteście zainteresowani nowym zleceniem? Może wyprawa na poszukiwanie ukrytego skarbu? A może potrzebujecie czasu na odkrywanie magicznych tajemnic? Zaznaczcie niżej tak aby było łatwiej ;)",
-                },
-                {
-                    "role": "assistant",
-                    "content": "Czy macie chwilę na szybkie zlecenie? Może chcecie spędzić czas na zbieraniu ziółek lub polowaniu na jednorożce? A może pragniecie wyprawy w poszukiwaniu zaginionego artefaktu? Zaznaczcie niżej kiedy macie czas",
-                },
-                {
-                    "role": "assistant",
-                    "content": "Czy macie ochotę na przygodę? Może czas na eksplorację tajemniczych jaskiń lub polowanie na potwory w lesie? A może chcielibyście zaryzykować i wyruszyć na niebezpieczną wyprawę po skarb? Zaznaczcie niżej kiedy macie czas  tak aby było łatwiej ;)",
-                },
-                {
-                    "role": "assistant",
-                    "content": "Czy wierzycie w odwagę i przygodę? Może macie czas na poszukiwania zaginionej cywilizacji lub walkę z niezniszczalnym smokiem? A może marzy wam się wyprawa w głąb nieznanych ziem? Zaznaczcie poniżej, kiedy macie czas, tak aby łatwiej było planować ;)",
-                },
+                }
             ],
             temperature=1,
             max_tokens=256,
