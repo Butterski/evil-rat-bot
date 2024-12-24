@@ -1,4 +1,4 @@
-d20==1.1.2
-discord==2.3.2
+d20
+discord
 openai==0.28.0
 python-dotenv==1.0.0
