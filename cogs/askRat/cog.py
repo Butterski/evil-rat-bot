@@ -1,7 +1,4 @@
-import os
-import discord
 import openai
-import json
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -21,7 +18,7 @@ class AskRat(commands.Cog):
         
         # only works on my discord and my category
         # todo make changeable
-        if message.channel.category_id == 1166126747360698459:
+        if message.channel.category_id == 1166126747360698459 or message.channel.id == 1018175837947830364:
             if message.content.startswith("napisz mi"):
                 response = openai.ChatCompletion.create(
                     model="gpt-4o-mini",
