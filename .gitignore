@@ -1,6 +1,9 @@
-/.env
+.env
 *.log
 *.pyc
-/venv
-.pytest_cache
-__pycache__
+/venv/
+.pytest_cache/
+__pycache__/
+*.tmp
+.idea/
+*.swp
