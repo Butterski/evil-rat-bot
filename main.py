@@ -20,7 +20,7 @@ client = commands.Bot(
 
 
 # -----COGS-----
-COGS = ("cogs.dice","cogs.schedule")
+COGS = ("cogs.dice","cogs.schedule", "cogs.askRat")
 
 
 @client.event
