@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-# listen to all messages, if message starts with "napisz mi..." then send rest of the message to openai and return the response
 class AskRat(commands.Cog):
     """Commands for asking Rat"""
 
