@@ -2,7 +2,6 @@ import os
 
 import d20
 import discord
-import openai
 from discord.errors import Forbidden, HTTPException
 from discord.ext import commands, tasks
 from discord.ext.commands.errors import CommandInvokeError
@@ -11,7 +10,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 token = os.environ.get("DISCORD_TOKEN")
-openai.api_key = os.environ.get("OPENAI_API")
 
 
 client = commands.Bot(

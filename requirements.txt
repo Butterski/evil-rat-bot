@@ -1,4 +1,7 @@
 d20
 discord
-openai==0.28.0
+openai
 python-dotenv==1.0.0
+langchain
+langchain-openai
+langchain-core
