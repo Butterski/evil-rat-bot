@@ -9,8 +9,7 @@ from langchain_openai import ChatOpenAI
 from cogs.schedule.utils import get_next_week_mondays_and_sundays, transform_message
 from utils.functions import try_delete
 
-load_dotenv()
-channel_id = os.getenv("SCHEDULE_CHANNEL")
+
 
 
 class Schedule(commands.Cog):
@@ -18,6 +17,7 @@ class Schedule(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        load_dotenv()
         try:
             self.llm = ChatOpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
@@ -25,6 +25,7 @@ class Schedule(commands.Cog):
                 temperature=0.8,
                 max_tokens=256,
             )
+            channel_id = os.getenv("SCHEDULE_CHANNEL")
         except Exception as e:
             print(f"Failed to initialize ChatOpenAI: {e}")
             self.llm = None

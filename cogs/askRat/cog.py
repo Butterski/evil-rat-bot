@@ -9,22 +9,25 @@ from langchain_openai import ChatOpenAI
 
 from cogs.askRat.utils import remove_xml_tags
 
-load_dotenv()
-
 
 class AskRat(commands.Cog):
     """Commands for asking Rat"""
 
     def __init__(self, bot):
         self.bot = bot
+        load_dotenv()
         self.characters_info = json.load(open("cogs/askRat/charinfos.json"))
         self.category_config = json.load(open("cogs/askRat/channelconfig.json"))
-        self.llm = ChatOpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
-            model="gpt-4o",
-            temperature=0.8,
-            max_tokens=768,
-        )
+        try:
+            self.llm = ChatOpenAI(
+                api_key=os.getenv("OPENAI_API_KEY"),
+                model="gpt-4o",
+                temperature=0.8,
+                max_tokens=768,
+            )
+        except Exception as e:
+            print(f"Failed to initialize ChatOpenAI: {e}")
+            self.llm = None
 
     @commands.Cog.listener()
     async def on_message(self, message):
