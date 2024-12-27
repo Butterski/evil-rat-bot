@@ -10,6 +10,12 @@ def remove_xml_tags(input_string):
     Returns:
         str: The string with XML tags and their contents removed.
     """
-    pattern = r"<[^>]+>.*?</[^>]+>|<[^/>]+/>"
-
-    return re.sub(pattern, "", input_string, flags=re.DOTALL).strip()
+    try:
+        pattern = r"<[^>]+>.*?</[^>]+>|<[^/>]+/>"
+        return re.sub(pattern, "", input_string, flags=re.DOTALL).strip()
+    except re.error as e:
+        print(f"Regex error: {e}")
+        return input_string
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return input_string
