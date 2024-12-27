@@ -1,118 +1,116 @@
-# FantasyRatBot
+# Evil Rat Bot
 
-A Discord bot written in Python that serves as an interactive fantasy rat innkeeper named Sławek. The bot provides dice rolling functionality, scheduling features, and AI-powered character interactions.
-
-## Technologies Used
-
-- **Python 3.10**
-- **discord.py** - Core Discord bot functionality
-- **OpenAI API** - Powers the AI character interactions
-- **d20** - Handles dice rolling mechanics (same system used by Avrae)
-- **Docker** - Containerization
-- **GitHub Actions** - CI/CD pipeline
+A Discord bot written in Python featuring a fantasy rat innkeeper named Sławek who provides dice rolling functionality, scheduling features, and AI-powered character interactions.
 
 ## Features
 
-- **Dice Rolling System**
-  - Standard dice rolling with `.roll` or `.r`
-  - Multiple rolls with `.multiroll` or `.rr`
-  - Iterative rolls with `.iterroll` or `.rrr`
-  - Special critical success/failure messages
-  - Support for advantage/disadvantage
+### Dice Rolling System
+- Standard dice rolling with `.roll` or `.r`
+  - Supports standard D&D dice notation (e.g., `1d20`, `2d6+3`)
+  - Advantage/disadvantage rolls with `adv`/`dis` keywords
+- Multiple rolls with `.multiroll` or `.rr`
+  - Roll the same dice multiple times
+- Iterative rolls with `.iterroll` or `.rrr`
+  - Roll against DC with success tracking
+- Custom critical success/failure messages
+- Markdown-formatted output
 
-- **Scheduling System**
-  - Automated weekly game scheduling
-  - Reaction-based availability tracking
-  - Custom emote support
+### Scheduling System
+- Weekly game scheduling automation
+- Reaction-based availability tracking
+- Custom emoji support
+- Automatic day/time aggregation
+- Threshold-based availability indicators
 
-- **AI Character Interaction**
-  - Interactive fantasy rat innkeeper character
-  - Contextual responses based on channel categories
-  - Character memory system
+### AI Character Interaction (Sławek the Rat)
+- Interactive fantasy rat innkeeper character
+- Context-aware responses based on channel categories
+- Character memory system
+- Custom response strategies per user
+- Natural language processing using GPT-4
 
 ## Prerequisites
 
-- Python 3.10 or higher
+- Python 3.10+
 - Discord Bot Token
 - OpenAI API Key
 
-## Installation
+## Environment Variables
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/FantasyRatBot.git
-cd FantasyRatBot
-```
-
-2. Create a virtual environment (optional but recommended):
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-4. Create a `.env` file in the root directory with the following content:
+Create a `.env` file with:
 ```env
 DISCORD_TOKEN=your_discord_bot_token
 OPENAI_API=your_openai_api_key
 SCHEDULE_CHANNEL=your_schedule_channel_id
 ```
 
-## Configuration Files Setup
+## Installation
 
-### askRat Configuration
-
-1. Create `charinfos.json` in the `cogs/askRat/` directory using the template:
-```json
-{
-  "user_nickname": {
-    "info": "General information about the user",
-    "character": "User's character description",
-    "response_strategy": "How the bot should respond to this user"
-  }
-}
+1. Clone the repository:
+```bash
+git clone https://github.com/Butterski/evil-rat-bot.git
+cd evil-rat-bot
 ```
 
-2. Create `channelconfig.json` in the `cogs/askRat/` directory using the template:
-```json
-{
-  "categories": [category_id_1, category_id_2],
-  "channels": [channel_id_1, channel_id_2]
-}
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
 ```
+
+3. Configure the bot:
+   - Copy `cogs/askRat/channelconfig_template.json` to `channelconfig.json`
+   - Copy `cogs/askRat/charinfos_template.json` to `charinfos.json`
+   - Update both files with your server's configuration
 
 ## Running the Bot
 
 ### Using Shell Script
 ```bash
-chmod +x run.sh  # Make script executable (Unix-like systems only)
+chmod +x run.sh
 ./run.sh
 ```
 
 ### Using Docker
-
-1. Build the Docker image:
 ```bash
-docker build -t fantasyratbot .
+docker build -t evil-rat-bot .
+docker run -d evil-rat-bot
 ```
 
-2. Run the container:
-```bash
-docker run -d fantasyratbot
+## Configuration Files
+
+### Channel Configuration
+```json
+{
+    "categories": [category_id_1, category_id_2],
+    "channels": [channel_id_1, channel_id_2]
+}
+```
+
+### Character Information
+```json
+{
+    "user_nickname": {
+        "info": "General information about the user",
+        "character": "User's character description",
+        "response_strategy": "How the bot should respond to this user"
+    }
+}
 ```
 
 ## Contributing
 
 1. Fork the repository
-2. Create a new branch for your feature
-3. Submit a pull request
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Submit a pull request
 
+## License
+
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-- Based on the [Avrae](https://github.com/avrae/avrae) bot
 - Uses the [d20](https://github.com/avrae/d20) rolling system
+- Powered by OpenAI's GPT-4
+- Built with discord.py
