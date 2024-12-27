@@ -22,9 +22,9 @@ class AskRat(commands.Cog):
         # only works on my discord and my category
         # todo make changeable
         if message.channel.category_id == 1166126747360698459 or message.channel.id == 1018175837947830364 or message.channel.id == 1244946402975416320:
-            if message.content.startswith("napisz mi"):
+            if (message.content.startswith("napisz mi")) or ("bocie" in message.content):
                 response = openai.ChatCompletion.create(
-                    model="gpt-4o-mini",
+                    model="gpt-4o",
                     messages=[
                         {
                             "role": "system",
