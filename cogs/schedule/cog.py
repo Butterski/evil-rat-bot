@@ -19,7 +19,12 @@ class Schedule(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         try:
-            self.llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.8, max_tokens=256)
+            self.llm = ChatOpenAI(
+                api_key=os.environ.get("OPENAI_API_KEY"),
+                model="gpt-4o-mini",
+                temperature=0.8,
+                max_tokens=256,
+            )
         except Exception as e:
             print(f"Failed to initialize ChatOpenAI: {e}")
             self.llm = None

@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-token = os.environ.get("DISCORD_TOKEN")
-openai_api = os.environ.get("OPENAI_API_KEY")
+TOKEN = os.environ.get("DISCORD_TOKEN")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 
 
 client = commands.Bot(
@@ -71,4 +71,4 @@ async def commands_error(ctx, error):
     raise error
 
 
-client.run(token)
+client.run(TOKEN)

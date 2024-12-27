@@ -1,4 +1,5 @@
 import json
+import os
 
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -18,7 +19,12 @@ class AskRat(commands.Cog):
         self.bot = bot
         self.characters_info = json.load(open("cogs/askRat/charinfos.json"))
         self.category_config = json.load(open("cogs/askRat/channelconfig.json"))
-        self.llm = ChatOpenAI(model="gpt-4o", temperature=0.8, max_tokens=768)
+        self.llm = ChatOpenAI(
+            api_key=os.environ.get("OPENAI_API_KEY"),
+            model="gpt-4o",
+            temperature=0.8,
+            max_tokens=768,
+        )
 
     @commands.Cog.listener()
     async def on_message(self, message):
