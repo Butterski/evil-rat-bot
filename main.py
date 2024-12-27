@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TOKEN = os.environ.get("DISCORD_TOKEN")
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
+TOKEN = os.getenv("DISCORD_TOKEN")
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 client = commands.Bot(

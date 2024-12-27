@@ -10,7 +10,7 @@ from cogs.schedule.utils import get_next_week_mondays_and_sundays, transform_mes
 from utils.functions import try_delete
 
 load_dotenv()
-channel_id = os.environ.get("SCHEDULE_CHANNEL")
+channel_id = os.getenv("SCHEDULE_CHANNEL")
 
 
 class Schedule(commands.Cog):
@@ -20,7 +20,7 @@ class Schedule(commands.Cog):
         self.bot = bot
         try:
             self.llm = ChatOpenAI(
-                api_key=os.environ.get("OPENAI_API_KEY"),
+                api_key=os.getenv("OPENAI_API_KEY"),
                 model="gpt-4o-mini",
                 temperature=0.8,
                 max_tokens=256,
