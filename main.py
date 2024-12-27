@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 token = os.environ.get("DISCORD_TOKEN")
+token = os.environ.get("OPENAI_API_KEY")
 
 
 client = commands.Bot(
@@ -18,7 +19,7 @@ client = commands.Bot(
 
 
 # -----COGS-----
-COGS = ("cogs.dice","cogs.schedule", "cogs.askRat")
+COGS = ("cogs.dice", "cogs.schedule", "cogs.askRat")
 
 
 @client.event
@@ -68,5 +69,6 @@ async def commands_error(ctx, error):
                     return
 
     raise error
+
 
 client.run(token)
