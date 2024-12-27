@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 token = os.environ.get("DISCORD_TOKEN")
-token = os.environ.get("OPENAI_API_KEY")
+openai_api = os.environ.get("OPENAI_API_KEY")
 
 
 client = commands.Bot(
