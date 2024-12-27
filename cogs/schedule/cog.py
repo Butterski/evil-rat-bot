@@ -72,15 +72,16 @@ class Schedule(commands.Cog):
         @commands.Cog.listener()
         async def on_raw_reaction_add(self, payload):
             if payload.emoji.id == 1166098516234485840:
-                id = payload.message_id
-                channel = self.bot.get_channel(payload.channel_id)
-                message = await channel.fetch_message(id)
-                day_and_nicks = ()
-                for reaction in message.reactions:
-                    users = set()
-                    async for user in reaction.users():
-                        if user.bot:
-                            continue
-                        users.add(user.nick)
-                    day_and_nicks += ((reaction.emoji.name, users),)
-                await channel.send(transform_message(day_and_nicks, 4))
+                if payload.user.id != 824970912382189571:
+                    id = payload.message_id
+                    channel = self.bot.get_channel(payload.channel_id)
+                    message = await channel.fetch_message(id)
+                    day_and_nicks = ()
+                    for reaction in message.reactions:
+                        users = set()
+                        async for user in reaction.users():
+                            if user.bot:
+                                continue
+                            users.add(user.nick)
+                        day_and_nicks += ((reaction.emoji.name, users),)
+                    await channel.send(transform_message(day_and_nicks, 4))
