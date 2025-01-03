@@ -15,7 +15,6 @@ class AskRat(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
-        load_dotenv()
         self.characters_info = json.load(open("cogs/askRat/charinfos.json"))
         self.category_config = json.load(open("cogs/askRat/channelconfig.json"))
         try:

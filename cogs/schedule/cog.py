@@ -10,14 +10,12 @@ from cogs.schedule.utils import get_next_week_mondays_and_sundays, transform_mes
 from utils.functions import try_delete
 
 
-
-
 class Schedule(commands.Cog):
     """Commands for scheduling"""
 
     def __init__(self, bot):
         self.bot = bot
-        load_dotenv()
+        self.schedule_message_id = None
         try:
             self.llm = ChatOpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
@@ -25,7 +23,7 @@ class Schedule(commands.Cog):
                 temperature=0.8,
                 max_tokens=256,
             )
-            channel_id = os.getenv("SCHEDULE_CHANNEL")
+            self.channel_id = os.getenv("SCHEDULE_CHANNEL")
         except Exception as e:
             print(f"Failed to initialize ChatOpenAI: {e}")
             self.llm = None
@@ -35,11 +33,11 @@ class Schedule(commands.Cog):
     )
     async def schedule_cmd(self, ctx):
         try:
-            if ctx.channel.id != int(channel_id):
+            if ctx.channel.id != int(self.channel_id):
                 return
 
             await try_delete(ctx.message)
-            channel = self.bot.get_channel(int(channel_id))
+            channel = self.bot.get_channel(int(self.channel_id))
 
             if not self.llm:
                 await channel.send("Sorry, LLM is not initialized properly")
@@ -110,7 +108,7 @@ class Schedule(commands.Cog):
             if payload.emoji.id != 1166098516234485840:
                 return
 
-            if payload.user.id == 824970912382189571:
+            if payload.user_id == 824970912382189571:
                 return
 
             channel = self.bot.get_channel(payload.channel_id)
@@ -137,9 +135,19 @@ class Schedule(commands.Cog):
 
             if day_and_nicks:
                 try:
-                    await channel.send(transform_message(day_and_nicks, 4))
+                    transformed_message = transform_message(day_and_nicks, 4)
+                    if self.schedule_message_id:
+                        schedule_message = await channel.fetch_message(
+                            self.schedule_message_id
+                        )
+                        await schedule_message.edit(content=transformed_message)
+                    else:
+                        schedule_message = await channel.send(transformed_message)
+                        self.schedule_message_id = schedule_message.id
                 except Exception as e:
-                    await channel.send(f"Failed to send transformed message: {str(e)}")
+                    await channel.send(
+                        f"Failed to send or edit transformed message: {str(e)}"
+                    )
 
         except Exception as e:
             print(f"Error in reaction handler: {e}")

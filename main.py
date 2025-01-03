@@ -7,11 +7,9 @@ from discord.ext import commands, tasks
 from discord.ext.commands.errors import CommandInvokeError
 from dotenv import load_dotenv
 
-load_dotenv()
-
+load_dotenv(override=True)
 TOKEN = os.getenv("DISCORD_TOKEN")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-print(OPENAI_API_KEY)
 
 
 client = commands.Bot(
@@ -37,6 +35,10 @@ async def on_ready():
     for cog in COGS:
         await client.load_extension(cog)
         print("║" + (f"{cog} loaded").center(50) + "║")
+    if load_dotenv():
+        print("║" + (f"Loaded .env file").center(50) + "║")
+        print(os.getenv("OPENAI_API_KEY"))
+        print(os.getenv("SCHEDULE_CHANNEL"))
     print("╚" + ("═" * 50) + "╝")
 
     await client.change_presence(
