@@ -2,6 +2,7 @@ import os
 
 import d20
 import discord
+from discord import app_commands
 from discord.errors import Forbidden, HTTPException
 from discord.ext import commands, tasks
 from discord.ext.commands.errors import CommandInvokeError
@@ -39,11 +40,25 @@ async def on_ready():
         print("║" + (f"Loaded .env file").center(50) + "║")
         print(os.getenv("OPENAI_API_KEY"))
         print(os.getenv("SCHEDULE_CHANNEL"))
+
+    # Sync the slash commands with Discord
+    try:
+        synced = await client.tree.sync()
+        print("║" + (f"Synced {len(synced)} command(s)").center(50) + "║")
+    except Exception as e:
+        print("║" + (f"Failed to sync commands: {e}").center(50) + "║")
+
     print("╚" + ("═" * 50) + "╝")
 
     await client.change_presence(
         status=discord.Status.online, activity=discord.Game("kiedy gramy?")
     )
+
+
+@client.tree.command(name="ping", description="Check bot's latency")
+async def ping(interaction: discord.Interaction):
+    latency = round(client.latency * 1000)
+    await interaction.response.send_message(f"Pong! Latency: {latency}ms")
 
 
 @client.listen("on_command_error")
