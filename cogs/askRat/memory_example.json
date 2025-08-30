@@ -1,0 +1,27 @@
+{
+  "long_term": {
+    "general": {
+      "ulubiony_napoj_jan": {
+        "value": "piwo żytnie",
+        "stored_at": "2025-08-30T10:00:00"
+      },
+      "historia_smoka": {
+        "value": "Kiedyś w tych stronach mieszkał mały smok, który bał się ognia",
+        "stored_at": "2025-08-30T10:15:00"
+      }
+    },
+    "gosce": {
+      "jan_kowalski": {
+        "value": "Stały gość, lubi słuchać opowieści o smokach",
+        "stored_at": "2025-08-30T10:30:00"
+      }
+    },
+    "anegdoty": {
+      "wielki_potop": {
+        "value": "Historia o tym jak karczma przetrwała wielki potop dzięki szczurzej przebiegłości",
+        "stored_at": "2025-08-30T11:00:00"
+      }
+    }
+  },
+  "last_updated": "2025-08-30T11:00:00"
+}
