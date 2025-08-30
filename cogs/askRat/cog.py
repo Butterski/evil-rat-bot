@@ -23,9 +23,10 @@ class AskRat(commands.Cog):
         try:
             self.llm = ChatOpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
-                model="gpt-4o",
                 temperature=0.8,
                 max_tokens=768,
+                openai_api_base="https://api.deepseek.com",
+                model="deepseek-chat"
             )
         except Exception as e:
             print(f"Failed to initialize ChatOpenAI: {e}")

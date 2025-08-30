@@ -41,8 +41,9 @@ class Schedule(commands.Cog):
         try:
             self.llm = ChatOpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
-                model="gpt-4o-mini",
                 temperature=0.8,
+                openai_api_base="https://api.deepseek.com",
+                model="deepseek-chat"
                 max_tokens=256,
             )
             self.channel_id = os.getenv("SCHEDULE_CHANNEL")
