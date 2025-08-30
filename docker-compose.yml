@@ -9,3 +9,6 @@ services:
       - .env
     volumes:
       - ./data:/bot/data
+      - ./cogs/askRat/memory.json:/bot/cogs/askRat/memory.json
+      - ./cogs/askRat/charinfos.json:/bot/cogs/askRat/charinfos.json
+      - ./cogs/askRat/channelconfig.json:/bot/cogs/askRat/channelconfig.json
