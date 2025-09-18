@@ -112,6 +112,9 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
             await try_delete(ctx.message)
             channel = self.bot.get_channel(int(self.channel_id))
 
+            # Reset schedule message ID for new schedule
+            self.schedule_message_id = None
+
             # Generate intro message
             intro_text = await self._generate_schedule_intro()
 
@@ -233,10 +236,6 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
     async def on_raw_reaction_add(self, payload):
         """Handle reactions to schedule messages"""
         try:
-            # Only process reactions from the results emoji
-            if payload.emoji.id != 1166098516234485840:
-                return
-
             # Ignore bot reactions
             if payload.user_id == 824970912382189571:
                 return
@@ -245,8 +244,32 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
             if not channel:
                 return
 
+            # Check if this is the correct channel
+            if channel.id != int(self.channel_id):
+                return
+
             message = await channel.fetch_message(payload.message_id)
             if not message:
+                return
+
+            # Check if this is a schedule message (has the right reactions)
+            emoji_ids = self._get_day_emoji_ids()
+            has_schedule_reactions = any(
+                reaction.emoji.id in emoji_ids
+                for reaction in message.reactions
+                if hasattr(reaction.emoji, "id")
+            )
+
+            # Only process if this message has schedule reactions or if reaction is results emoji
+            if not has_schedule_reactions and payload.emoji.id != 1166098516234485840:
+                return
+
+            # Additional check: only process if this is the current schedule message or has all day reactions
+            if (
+                self.current_schedule_data
+                and message.id != self.current_schedule_data.get("message_id")
+                and not has_schedule_reactions
+            ):
                 return
 
             # Collect all reaction data
