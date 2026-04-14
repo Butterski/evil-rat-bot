@@ -19,7 +19,7 @@ nat20texts = [
     "Jeśli to była próba, to na pewno dostałbyś złoty medal od Króla Kostek.",
     "Możliwe, że twoja kostka to wcielenie samozachwytu.",
     "20 na kostce? Chyba teraz jesteś zobowiązany do wygrania gry dla wszystkich!",
-    "Ktoś dzwonił do mnie z Eldorado. Twój rzut kostką zgubił się na środku złota!"
+    "Ktoś dzwonił do mnie z Eldorado. Twój rzut kostką zgubił się na środku złota!",
     "To nie jest już D&D, to D20-D.",
     "Chyba jesteś magikiem kosteczek. Czy przyjmujesz uczniów?",
     "Czy masz jakieś konkretne życzenie? Twój kostka na pewno spełni.",
@@ -34,6 +34,22 @@ nat20texts = [
     "Ktoś powinien włączyć alarm przeciwpowodziowy, bo te wyniki są niesamowite!",
     "Twój 20 na kostce to przypadek dla Muzeum Historii Kostek.",
     "Nawet Gandalf byłby zazdrosny o twoje umiejętności rzucania kostką!",
+    "Bogowie Kości uśmiechnęli się do Ciebie!",
+    "Twój rzut był tak potężny, że mistrz gry zapłakał rzewnymi łzami.",
+    "Zaraz spadnie z nieba deszcz epickiego lootu!",
+    "Idealny rzut! Nawet krasnoludzki kowal by tego lepiej nie wykuł.",
+    "Natura 20! Uczysz się takich sztuczek w gildii, czy to wrodzony talent?",
+    "Trafienie tak czyste, że przeciwnik sam składa ci gratulacje przed zejściem.",
+    "Zagiąłeś czasoprzestrzeń i zasady matematyki jednym rzutem.",
+    "Krytyk! Cthulhu obudził się na chwilę, spojrzał na wynik i poszedł spać dalej.",
+    "Tak piękny rzut, że przedwieczni bogowie zaczęli klaskać mackami w R'lyeh.",
+    "Mistrz gry nie ma na to tabeli. Gratulacje, zepsułeś scenariusz!",
+    "Czy ty właśnie uciszyłeś Pradawnego jednym rzutem D20?",
+    "Wrzucasz tę dwudziestkę z taką gracją, jakbyś uczył się od samych elfów.",
+    "Rzut tak dobry, że paladyn oddał Ci swoją świętą tarczę z wrażenia.",
+    "Po takim rzucie nawet Nekromanta by cię ożywił, z szacunku.",
+    "Krytyczny SUKCES! Wartość twojej postaci właśnie wzrosła o 300%.",
+    "Rzut był tak perfekcyjny, że aż portal do wymiaru obfitości sam się otworzył.",
 ]
 
 nat1texts = [
@@ -57,7 +73,7 @@ nat1texts = [
     "Twoja kostka jest tak leniwa, że zawsze jest na wakacjach.",
     "Może powinniśmy dodać do twojej kostki kapsułkę z życzeniem. Może wtedy wyrzucisz coś innego.",
     "Twój rzut jest jak tajemnicza zagadka, której nawet najmądrzejsi magowie nie potrafią rozwiązać.",
-    "Twoja kostka była tak leniwa, że myślała, że wyrzuciła 10 i polegała na naszej dezorientacji!"
+    "Twoja kostka była tak leniwa, że myślała, że wyrzuciła 10 i polegała na naszej dezorientacji!",
     "To nie był rzut kostką, to był przesłuchanie na rolę w filmie 'Najgorszy Rzut Kostką na Świecie'.",
     "Twój rzut kostką to jak odcinek fillerowy w grze D&D.",
     "1 na kostce? Czy twoja kostka przypadkiem nie jest modelem dla tabliczki z napisem 'Nie próbuj tego w domu'?",
@@ -67,10 +83,27 @@ nat1texts = [
     "1 na kostce? To jasne, że to jest początek nowej, świetlnej kariery twojej kostki jako papierowej wagi.",
     "Twoja kostka jest jak ktoś, kto zawsze spóźnia się na spotkania - zawsze trafia w złe miejsce.",
     "Czy widziałeś kiedykolwiek taką złą kostkę? Nawet mimik może zazdrościć.",
+    "Karczmarz z litości postawi ci darmowe piwo po tym rzucie.",
+    "Twój rzut był tak zły, że twoja postać właśnie potknęła się o własne cienie.",
+    "Nawet goblin z zawiązanymi oczami rzuciłby lepiej.",
+    "Kość mówi stanowcze NIE. I to z dużym wykrzyknikiem.",
+    "Mistrz gry uśmiecha się diabolicznie po tym rzucie. To nigdy nie wróży nic dobrego.",
+    "Przechodzisz do historii... jako encyklopedyczny przykład, jak tego NIE robić.",
+    "Twój rzut przyzwał istotę z innego wymiaru... i ona też uważa, że to był żenujący wynik.",
+    "Po tym rzucie tracisz 1d4 punktów poczytalności na sam widok tej jedynki.",
+    "Czy czujesz ten mrok? To Cthulhu właśnie zapłakał nad twoim pechem.",
+    "Gdyby to było wezwanie boga, zjawiłby się tylko ziewający chochlik.",
+    "Przeciwnik nawet cię nie atakuje, po prostu kręci głową i rzuca ci sztukę złota z litości.",
+    "Twój miecz z wielkim smutkiem decyduje się sam stępić po tym ataku.",
+    "Natura 1. Gobliny w sąsiednim lochu właśnie parsknęły śmiechem.",
+    "Patrzysz w otchłań, a otchłań pyta: 'Serio? Jedynka?'.",
+    "To nie jest rzut, to jest publiczna egzekucja godności twojej postaci.",
 ]
+
 
 def getRandomNat20Text():
     return random.choice(nat20texts)
+
 
 def getRandomNat1Text():
     return random.choice(nat1texts)

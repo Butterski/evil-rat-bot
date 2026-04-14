@@ -11,6 +11,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 
 from cogs.schedule.utils import (
+    get_day_name_from_emoji,
     get_next_week_mondays_and_sundays,
     get_week_range,
     transform_message,
@@ -122,17 +123,22 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
             monday, sunday = get_next_week_mondays_and_sundays()
             week_range = get_week_range(monday, sunday)
 
-            # Create enhanced message
-            message = (
-                f"## 🗓️ Kiedy gramy?\n"
-                f"|| @everyone ||\n\n"
-                f"**📅 Tydzień**: {week_range}\n"
-                f"**🎯 Próg**: {self.threshold} graczy\n\n"
-                f"*{intro_text}*\n\n"
-                f"**Reaguj na dni kiedy możesz grać:**"
+            # Create enhanced embed message
+            poll_embed = discord.Embed(
+                title="🗓️ Kiedy gramy?",
+                description=f"*{intro_text}*",
+                color=0xEB459E,  # A nice vibrant color
+                timestamp=datetime.now(),
             )
+            poll_embed.add_field(
+                name="📅 Tydzień", value=f"`{week_range}`", inline=True
+            )
+            poll_embed.add_field(
+                name="🎯 Próg", value=f"`{self.threshold}` graczy", inline=True
+            )
+            poll_embed.set_footer(text="Reaguj na dni kiedy możesz grać poniżej!")
 
-            msg = await channel.send(message)
+            msg = await channel.send(content="|| @everyone ||", embed=poll_embed)
 
             # Add day reactions with custom emojis
             emoji_ids = self._get_day_emoji_ids()
@@ -233,7 +239,7 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
             await ctx.send(f"❌ Błąd: {str(e)}")
 
     @commands.Cog.listener()
-    async def on_raw_reaction_add(self, payload):
+    async def on_raw_reaction_add(self, payload, is_add=True):
         """Handle reactions to schedule messages"""
         try:
             # Ignore bot reactions
@@ -275,6 +281,7 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
             # Collect all reaction data
             day_and_nicks = []
             total_participants = set()
+            newly_reached_5 = None
 
             for reaction in message.reactions:
                 try:
@@ -289,9 +296,22 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
                     if users:  # Only add if there are users
                         day_and_nicks.append((reaction.emoji.name, users))
 
+                    # If this is the reaction just added, and it exactly reached 5 people
+                    if (
+                        is_add
+                        and len(users) == 5
+                        and payload.emoji.name == reaction.emoji.name
+                    ):
+                        newly_reached_5 = reaction.emoji.name
+
                 except Exception as e:
                     print(f"Failed to process reaction {reaction}: {e}")
                     continue
+
+            if newly_reached_5:
+                # E.g., translates "poniedziałek" to "Poniedziałek" or whatever the standard is
+                day_name = get_day_name_from_emoji(newly_reached_5)
+                await channel.send(f"🎉 **Zdobyliśmy 5 osób na dzień: {day_name}!** 🎲")
 
             if day_and_nicks:
                 try:
@@ -308,13 +328,17 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
                             schedule_message = await channel.fetch_message(
                                 self.schedule_message_id
                             )
-                            await schedule_message.edit(content=transformed_message)
+                            await schedule_message.edit(
+                                content=None, embed=transformed_message
+                            )
                         except discord.NotFound:
                             # Message was deleted, create new one
-                            schedule_message = await channel.send(transformed_message)
+                            schedule_message = await channel.send(
+                                embed=transformed_message
+                            )
                             self.schedule_message_id = schedule_message.id
                     else:
-                        schedule_message = await channel.send(transformed_message)
+                        schedule_message = await channel.send(embed=transformed_message)
                         self.schedule_message_id = schedule_message.id
 
                 except Exception as e:
@@ -329,7 +353,7 @@ Napisz krótką, kreatywną wiadomość (max 150 znaków) zachęcającą do gło
     async def on_raw_reaction_remove(self, payload):
         """Handle reaction removal (trigger update)"""
         # Reuse the same logic as reaction_add for updates
-        await self.on_raw_reaction_add(payload)
+        await self.on_raw_reaction_add(payload, is_add=False)
 
 
 async def setup(bot):
